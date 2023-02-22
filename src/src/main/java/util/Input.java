@@ -4,9 +4,13 @@ import java.util.Scanner;
 
 public class Input {
 
-    private Scanner scannerInput;
+    private static Scanner scannerInput;
 
-    public int getInt(int min, int max) {
+    public Input() {
+        scannerInput = new Scanner(System.in);
+    }
+
+    public static int getInt(int min, int max) {
 
         int userNum = scannerInput.nextInt();
 
@@ -16,5 +20,9 @@ public class Input {
             System.out.printf("Enter a number between %d and %d: ", min, max);
             return getInt(min, max);
         }
+    }
+
+    public static void setScannerInput(Scanner scannerInput) {
+        Input.scannerInput = scannerInput;
     }
 }

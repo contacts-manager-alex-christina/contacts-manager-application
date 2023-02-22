@@ -10,6 +10,8 @@ public class ContactsApplication {
 
             printMenu();
 
+            Input user = new Input();
+
             int selection = Input.getInt(1, 5);
 
             if (selection == 5) {
@@ -25,18 +27,14 @@ public class ContactsApplication {
     }
 
     private static void printMenu () {
-        System.out.printf("What would you like to do?" +
+        System.out.printf("What would you like to do?\n" +
                 "1. View contacts.\n" +
-                "\n" +
                 "2. Add a new contact.\n" +
-                "\n" +
                 "3. Search a contact by name.\n" +
-                "\n" +
                 "4. Delete an existing contact.\n" +
-                "\n" +
                 "5. Exit.\n" +
                 "\n" +
-                "Enter your choice: ");
+                "Enter your choice (1 - 5): ");
     }
 
     private static void chooseOption(int selection) {
