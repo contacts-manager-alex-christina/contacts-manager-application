@@ -76,7 +76,7 @@ public class ContactsApplication {
         System.out.print("What would you like to do?\n" +
                 "1. View contacts.\n" +
                 "2. Add a new contact.\n" +
-                "3. Search a contact by name.\n" +
+                "3. Search a contact.\n" +
                 "4. Delete an existing contact.\n" +
                 "5. Exit.\n" +
                 "\n" +
@@ -96,6 +96,27 @@ public class ContactsApplication {
     }
 
     private static void searchContact() {
+        String nameOrNum = null;
+        String search = null;
+        do {
+            nameOrNum = Input.getString("Would you like to search by: (Enter 1 or 2)\n1. Name\n2. Number");
+        } while(!"1".equals(nameOrNum) && !"2".equals(nameOrNum));
+        if("1".equals(nameOrNum)){
+            search = Input.getString("Name Search: ");
+            for (Contact contact : contacts) {
+                if(contact.getContactName().contains(search)){
+                    System.out.println(contact);
+                }
+            }
+        } else {
+            search = Input.getString("Number Search: ");
+            for (Contact contact : contacts) {
+                if(contact.getContactName().contains(search)){
+                    System.out.println(contact);
+                }
+            }
+        }
+
     }
 
     private static void addContacts() throws IOException {
