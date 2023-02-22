@@ -16,9 +16,9 @@ public class ContactsApplication {
 
     public static void main(String[] args) {
 
-        while(true) {
+        populateContacts();
 
-            populateContacts();
+        while(true) {
 
             printMenu();
 
