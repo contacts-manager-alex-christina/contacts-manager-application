@@ -4,10 +4,15 @@ public class Contact {
 
     protected String contactName;
 
-    protected Long contactPhone;
-    public Contact(String name, Long phoneNumber) {
+    protected String contactPhone;
+    public Contact(String name, String phoneNumber) {
         contactName = name;
         contactPhone = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return contactName + "," + contactPhone;
     }
 
     public String getContactName() {
@@ -18,11 +23,11 @@ public class Contact {
         this.contactName = contactName;
     }
 
-    public Long getContactPhone() {
+    public String getContactPhone() {
         return contactPhone;
     }
 
-    public void setContactPhone(Long contactPhone) {
+    public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
 }
