@@ -3,10 +3,7 @@ package contacts;
 import util.Input;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -61,6 +58,21 @@ public class ContactsApplication {
 
     private static void populateContacts() {
         Path datapath = Paths.get("data.txt");
+
+
+        if(!Files.exists(datapath)) {
+        try {
+            Files.createFile(datapath);
+            //System.out.println("The file has been created.");
+        } catch(FileAlreadyExistsException e) {
+            //System.out.println("File exists");
+
+        } catch (IOException e) {
+            System.out.println("createFile exception: " + e.getMessage());
+            e.printStackTrace();//tells us which exception is thrown
+        }
+        }
+
         try{
             List<String> stringedData = new ArrayList<>();
             stringedData = Files.readAllLines(datapath);
@@ -68,7 +80,7 @@ public class ContactsApplication {
                 contacts.add(Contact.stringToObject(stringedDatum));
             }
         } catch (Exception e){
-            System.out.println("Exception occured");
+            System.out.println("Exception occurred");
         }
     }
 
