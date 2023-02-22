@@ -10,6 +10,15 @@ public class Input {
         scannerInput = new Scanner(System.in);
     }
 
+    public String getString() {
+        return scannerInput.nextLine();
+    }
+
+    public String getString(String prompt) {
+        System.out.println(prompt);
+        return getString();
+    }
+
     public static int getInt(int min, int max) {
 
         int userNum = scannerInput.nextInt();
