@@ -22,6 +22,15 @@ public class Input {
         }
     }
 
+    public String getString() {
+        return scannerInput.nextLine();
+    }
+
+    public String getString(String prompt) {
+        System.out.println(prompt);
+        return getString();
+    }
+
     public static void setScannerInput(Scanner scannerInput) {
         Input.scannerInput = scannerInput;
     }
