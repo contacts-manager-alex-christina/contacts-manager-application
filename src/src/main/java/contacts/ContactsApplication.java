@@ -38,25 +38,25 @@ public class ContactsApplication {
     }
 
     private static void chooseOption(int selection) {
-        if (selection == 1) {
-            printContacts();
+        switch (selection){
+            case 1 -> printContacts();
+            case 2 -> addContacts();
+            case 3 -> searchContact();
+            case 4 -> deleteContact();
         }
-        if (selection == 2) {
-            addContact();
-        }
-        if (selection == 3) {
-            searchContact();
-        }
-        if (selection == 4) {
-            deleteContact();
-        }
-
     }
 
+    private static void deleteContact() {
+    }
 
+    private static void searchContact() {
+    }
 
+    private static void addContacts() {
+    }
 
-
+    private static void printContacts() {
+    }
 
 
 }
