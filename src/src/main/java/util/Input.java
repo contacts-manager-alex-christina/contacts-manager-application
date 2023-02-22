@@ -6,7 +6,7 @@ public class Input {
 
     private Scanner scannerInput;
 
-    public int getInt(int min, int max) {
+    public static int getInt(int min, int max) {
 
         int userNum = scannerInput.nextInt();
 
