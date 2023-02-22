@@ -4,11 +4,13 @@ import util.Input;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class ContactsApplication {
 
@@ -58,7 +60,16 @@ public class ContactsApplication {
     }
 
     private static void populateContacts() {
-
+        Path datapath = Paths.get("data.txt");
+        try{
+            List<String> stringedData = new ArrayList<>();
+            stringedData = Files.readAllLines(datapath);
+            for (String stringedDatum : stringedData) {
+                contacts.add(Contact.stringToObject(stringedDatum));
+            }
+        } catch (Exception e){
+            System.out.println("Exception occured");
+        }
     }
 
     private static void printMenu () {
@@ -96,6 +107,9 @@ public class ContactsApplication {
     }
 
     private static void printContacts() {
+        for (Contact contact : contacts) {
+            System.out.println(contact);
+        }
     }
 
 

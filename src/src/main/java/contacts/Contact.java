@@ -15,6 +15,15 @@ public class Contact {
         return contactName + "," + contactPhone;
     }
 
+    public static Contact stringToObject (String fileString){
+        String [] pieces = fileString.split(",");
+        return new Contact(pieces[0], pieces[1]);
+    }
+
+    public static String objectToString (Contact fileObject){
+        return String.format("%s, %s", fileObject.contactName, fileObject.contactPhone);
+    }
+
     public String getContactName() {
         return contactName;
     }
