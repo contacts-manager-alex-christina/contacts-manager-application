@@ -1,5 +1,7 @@
 package contacts;
 
+import util.Input;
+
 public class ContactsApplication {
 
     public static void main(String[] args) {
@@ -8,7 +10,7 @@ public class ContactsApplication {
 
             printMenu();
 
-            int selection = input.getInt(1, 5);
+            int selection = Input.getInt(1, 5);
 
             if (selection == 5) {
                 System.out.println("Program exited.");
