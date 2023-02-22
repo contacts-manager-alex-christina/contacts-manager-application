@@ -21,7 +21,7 @@ public class Contact {
     }
 
     public static String objectToString (Contact fileObject){
-        return String.format("%s, %s", fileObject.contactName, fileObject.contactPhone);
+        return String.format("%s,%s", fileObject.contactName, fileObject.contactPhone);
     }
 
     public String getContactName() {
