@@ -1,6 +1,6 @@
 package contacts;
 
-public class Contact {
+public class git pull origgit pull origin mainContact {
 
     protected String contactName;
 
