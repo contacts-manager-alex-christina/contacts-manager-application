@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ContactsApplication {
+    protected static final Path DATAPATH = Paths.get("data.txt");
 
     static ArrayList <Contact> contacts = new ArrayList<>();
 
@@ -47,22 +48,21 @@ public class ContactsApplication {
     }
 
     private static void refreshData() throws IOException {
+        ArrayList<String> newCollection = new ArrayList<>();
         for (Contact contact : contacts) {
-            Files.write(
-                    Paths.get( "data.txt"),
-                    Collections.singletonList(contact.getContactName() + "," + contact.getContactPhone()),
-                    StandardOpenOption.APPEND
-            );
+            newCollection.add(Contact.objectToString(contact));
         }
+        Files.write(
+                DATAPATH,
+                newCollection
+        );
     }
 
     private static void populateContacts() {
-        Path datapath = Paths.get("data.txt");
 
-
-        if(!Files.exists(datapath)) {
+        if(!Files.exists(DATAPATH)) {
         try {
-            Files.createFile(datapath);
+            Files.createFile(DATAPATH);
             //System.out.println("The file has been created.");
         } catch(FileAlreadyExistsException e) {
             //System.out.println("File exists");
@@ -74,8 +74,8 @@ public class ContactsApplication {
         }
 
         try{
-            List<String> stringedData = new ArrayList<>();
-            stringedData = Files.readAllLines(datapath);
+            List<String> stringedData;
+            stringedData = Files.readAllLines(DATAPATH);
             for (String stringedDatum : stringedData) {
                 contacts.add(Contact.stringToObject(stringedDatum));
             }
@@ -120,10 +120,11 @@ public class ContactsApplication {
                     System.out.println(contact);
                 }
             }
-        } else {
+        }
+        if("2".equals(nameOrNum)){
             search = Input.getString("Number Search: ");
             for (Contact contact : contacts) {
-                if(contact.getContactName().contains(search)){
+                if(contact.getContactPhone().contains(search)){
                     System.out.println(contact);
                 }
             }
