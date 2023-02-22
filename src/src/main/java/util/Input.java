@@ -22,11 +22,15 @@ public class Input {
         }
     }
 
-    public String getString() {
+    public static void clearBuffer(){
+        scannerInput.nextLine();
+    }
+
+    public static String getString() {
         return scannerInput.nextLine();
     }
 
-    public String getString(String prompt) {
+    public static String getString(String prompt) {
         System.out.println(prompt);
         return getString();
     }
