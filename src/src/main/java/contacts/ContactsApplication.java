@@ -4,10 +4,7 @@ import util.Input;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ContactsApplication {
     protected static final Path DATAPATH = Paths.get("data.txt");
@@ -151,8 +148,24 @@ public class ContactsApplication {
 
     }
 
+    private static boolean checkDuplicates(String contactName) {
+        for (Contact contact : contacts) {
+            if(contact.getContactName().equalsIgnoreCase(contactName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void addContacts() throws IOException {
         String contactName = Input.getString("New contact name: ");
+        if(checkDuplicates(contactName)){
+            boolean overrideResponse = Input.yesNo("Contact name already exists\nContinue and override? [y/n]");
+            if(!overrideResponse){
+                return;
+            }
+        }
+        contacts.removeIf(contact -> contact.getContactName().equalsIgnoreCase(contactName));
         String contactNumber = Input.getString("New contact number: ");
         Contact newContact = new Contact(contactName, contactNumber);
         contacts.add(newContact);
