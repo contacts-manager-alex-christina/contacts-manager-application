@@ -49,7 +49,7 @@ public class Input {
         return getString();
     }
 
-    public boolean yesNo() {
+    public static boolean yesNo() {
         String choice = scannerInput.nextLine(); //calss example = getString(); called encapsulation but it makes things clean and simple
         if (choice.equalsIgnoreCase("y")) {
             return true;
@@ -60,13 +60,14 @@ public class Input {
         }
     }
 
-    public boolean yesNo(String prompt) {
+
+    public static boolean yesNo(String prompt) {
         System.out.println(prompt);
         return yesNo();
 
     }
 
     public static void setScannerInput(Scanner scannerInput) {
-        Input.scannerInput = scannerInput;
+        util.Input.scannerInput = scannerInput;
     }
 }
