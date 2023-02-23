@@ -234,13 +234,13 @@ public class ContactsApplication {
         String nameString = "Name";
         String numberString = "Phone Number";
 
-        System.out.printf(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED +"-------------------------------------\n");
+        System.out.printf(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED +"-------------------------------------------\n");
 
-        System.out.printf("| %-18s | %-12s |\n", nameString, numberString);
-        System.out.print("-------------------------------------\n");
+        System.out.printf("| %-18s |    %-15s |\n", nameString, numberString);
+        System.out.print("-------------------------------------------\n");
         for (Contact contact : contacts) {
             if(contact.getContactName().contains(search) || contact.getContactPhone().contains(search) || contact.getContactPhone().replaceAll("-", "").contains(search)){
-                System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
+                slowPrint(String.format("| %-18s |    %-15s |\n", contact.contactName, contact.contactPhone), ANSI_BRIGHT_BG_YELLOW, ANSI_BRIGHT_RED);
                 count++;
             }
         }
@@ -248,7 +248,7 @@ public class ContactsApplication {
         if (count == 0) {
             System.out.println("No matching search results found.");
         }
-        System.out.printf("-------------------------------------\n");
+        System.out.printf("-------------------------------------------\n");
 
     }
 
@@ -299,7 +299,7 @@ public class ContactsApplication {
         
         System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n-------------------------------------------");
 
-        System.out.printf("\n" +
+        System.out.printf(
                 "| %-18s |    %-15s |\n", nameString, numberString);
         System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "-------------------------------------------\n");
 
