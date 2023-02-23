@@ -1,7 +1,7 @@
 package contacts;
 
+import java.util.concurrent.TimeUnit;
 import util.Input;
-
 import java.io.IOException;
 import java.nio.file.*;
 import java.security.KeyStore;
@@ -62,8 +62,10 @@ public class ContactsApplication {
             // Clear buffer
             Input.clearBuffer();
             if (selection == 5) {
+
                 System.out.println("Program exited.");
                 bye();
+
                 break;
             } else {
                 try{
@@ -79,6 +81,7 @@ public class ContactsApplication {
             System.out.println("IOException Happened in refreshData()");
         }
     }
+
 
     private static void bye() {
         System.out.print(ANSI_BRIGHT_CYAN + ANSI_PURPLE_BACKGROUND + "" +
@@ -123,6 +126,20 @@ public class ContactsApplication {
                 "       _\\/\\\\\\_______\\/\\\\\\_____\\///\\\\\\\\\\/__________\\//\\\\\\__\\//\\\\\\_______\\/\\\\\\\\\\\\\\\\\\\\\\\\/__________\\/\\\\\\_______ \n" +
                 "        _\\///________\\///________\\/////_____________\\///____\\///________\\////////////____________\\///________\n\n"         );
 
+
+
+    public static void slowPrint(String output, String textColor, String bgColor) {
+        if (textColor == null){
+            System.out.print(output);
+        } else {
+            System.out.print(textColor + bgColor + output);
+        }
+        try {
+            TimeUnit.MILLISECONDS.sleep(220);
+        }
+        catch (Exception e) {
+            System.out.println("exception occured");
+        }
 
     }
 
@@ -219,8 +236,7 @@ public class ContactsApplication {
         System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n");
         System.out.printf("-------------------------------------");
 
-        System.out.printf("\n" +
-                "| %-18s | %-12s |\n", nameString, numberString);
+        System.out.printf("| %-18s | %-12s |\n", nameString, numberString);
         System.out.print("-------------------------------------\n");
         for (Contact contact : contacts) {
             if(contact.getContactName().contains(search) || contact.getContactPhone().contains(search) || contact.getContactPhone().replaceAll("-", "").contains(search)){
@@ -278,19 +294,20 @@ public class ContactsApplication {
     private static void printContacts() {
         String nameString = "Name";
         String numberString = "Phone Number";
-        wolf();
-        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n");
 
-        System.out.printf("-------------------------------------");
+        wolf();
+        
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n-------------------------------------------");
 
         System.out.printf("\n" +
-                "| %-18s | %-12s |\n", nameString, numberString);
-        System.out.print("-------------------------------------\n");
+                "| %-18s |    %-15s |\n", nameString, numberString);
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "-------------------------------------------\n");
+
         for (Contact contact : contacts) {
-            System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
+            slowPrint(String.format("| %-18s |    %-15s |\n", contact.contactName, contact.contactPhone), ANSI_BRIGHT_BG_YELLOW, ANSI_BRIGHT_RED);
         }
-        System.out.print("-------------------------------------\n");
-        System.out.print("\n");
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "-------------------------------------------\n\n");
+
     }
 
     private static void wolf() {
