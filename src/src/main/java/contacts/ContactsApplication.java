@@ -4,10 +4,7 @@ import util.Input;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ContactsApplication {
     protected static final Path DATAPATH = Paths.get("data.txt");
@@ -19,7 +16,7 @@ public class ContactsApplication {
         populateContacts();
 
         while(true) {
-        
+
             printMenu();
 
             Input user = new Input();
@@ -61,16 +58,16 @@ public class ContactsApplication {
     private static void populateContacts() {
 
         if(!Files.exists(DATAPATH)) {
-        try {
-            Files.createFile(DATAPATH);
-            //System.out.println("The file has been created.");
-        } catch(FileAlreadyExistsException e) {
-            //System.out.println("File exists");
+            try {
+                Files.createFile(DATAPATH);
+                //System.out.println("The file has been created.");
+            } catch(FileAlreadyExistsException e) {
+                //System.out.println("File exists");
 
-        } catch (IOException e) {
-            System.out.println("createFile exception: " + e.getMessage());
-            e.printStackTrace();
-        }
+            } catch (IOException e) {
+                System.out.println("createFile exception: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
 
         try{
@@ -108,7 +105,7 @@ public class ContactsApplication {
         int delete = 0;
 
 
-       // contacts.remove(10);
+        // contacts.remove(10);
 
         for (int i = 0; i < contacts.size(); i++) {
             System.out.printf(" %d. %s\n", (i +1), contacts.get(i));
@@ -150,8 +147,24 @@ public class ContactsApplication {
 
     }
 
+    private static boolean checkDuplicates(String contactName) {
+        for (Contact contact : contacts) {
+            if(contact.getContactName().equalsIgnoreCase(contactName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void addContacts() throws IOException {
         String contactName = Input.getString("New contact name: ");
+        if(checkDuplicates(contactName)){
+            boolean overrideResponse = Input.yesNo("Contact name already exists\nContinue and override? [y/n]");
+            if(!overrideResponse){
+                return;
+            }
+        }
+        contacts.removeIf(contact -> contact.getContactName().equalsIgnoreCase(contactName));
         String contactNumber = Input.getString("New contact number: ");
         Contact newContact = new Contact(contactName, contactNumber);
         contacts.add(newContact);
