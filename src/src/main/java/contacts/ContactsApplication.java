@@ -140,7 +140,6 @@ public class ContactsApplication {
     }
 
     private static void printSearch(String search) {
-        int count = 0;
         String nameString = "Name";
         String numberString = "Phone Number";
         System.out.println("\n");
@@ -151,11 +150,7 @@ public class ContactsApplication {
         for (Contact contact : contacts) {
             if(contact.getContactName().contains(search)){
                 System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
-                count++;
             }
-        }
-        if (count == 0) {
-            System.out.println("No matching search results found.");
         }
         System.out.printf("-------------------------------------\n");
     }
@@ -190,9 +185,13 @@ public class ContactsApplication {
         do {
             contactNumber = Input.getString("New contact number: ");
         } while(!validifyDigits(contactNumber));
-        Contact newContact = new Contact(contactName, contactNumber);
+        Contact newContact = new Contact(contactName, formatNumber(contactNumber));
         contacts.add(newContact);
         System.out.println("Added contact: " + newContact.contactName);
+    }
+
+    private static String formatNumber(String contactNum) {
+        return contactNum.substring(0,3) + "-" + contactNum.substring(3,6) + "-" + contactNum.substring(6,10);
     }
 
     private static void printContacts() {
