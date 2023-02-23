@@ -7,24 +7,19 @@ import java.nio.file.*;
 import java.util.*;
 
 public class ContactsApplication {
-    protected static final Path DATAPATH = Paths.get("data.txt");
+    protected static final Path DATA_PATH = Paths.get("data.txt");
 
     static ArrayList<Contact> contacts = new ArrayList<>();
 
     public static void main(String[] args) {
-
+        Input user = new Input();
+        checkFileExists();
         populateContacts();
         while(true) {
-
             printMenu();
-
-            Input user = new Input();
-
             int selection = Input.getInt(1, 5);
-
             // Clear buffer
             Input.clearBuffer();
-
             if (selection == 5) {
                 System.out.println("Program exited.");
                 break;
@@ -39,7 +34,7 @@ public class ContactsApplication {
         try{
             refreshData();
         } catch (IOException e){
-            System.out.println("IOException Happened in refresh");
+            System.out.println("IOException Happened in refreshData()");
         }
     }
 
@@ -49,29 +44,29 @@ public class ContactsApplication {
             newCollection.add(Contact.objectToString(contact));
         }
         Files.write(
-                DATAPATH,
+                DATA_PATH,
                 newCollection
         );
     }
 
-    private static void populateContacts() {
-
-        if(!Files.exists(DATAPATH)) {
+    private static void checkFileExists() {
+        if(!Files.exists(DATA_PATH)) {
             try {
-                Files.createFile(DATAPATH);
-                //System.out.println("The file has been created.");
+                Files.createFile(DATA_PATH);
+                System.out.println("File readied..");
             } catch(FileAlreadyExistsException e) {
-                //System.out.println("File exists");
-
+                System.out.println("File is ready..");
             } catch (IOException e) {
                 System.out.println("createFile exception: " + e.getMessage());
                 e.printStackTrace();
             }
         }
+    }
 
+        private static void populateContacts() {
         try{
             List<String> stringedData;
-            stringedData = Files.readAllLines(DATAPATH);
+            stringedData = Files.readAllLines(DATA_PATH);
             for (String stringedDatum : stringedData) {
                 contacts.add(Contact.stringToObject(stringedDatum));
             }
@@ -101,28 +96,17 @@ public class ContactsApplication {
     }
 
     private static void deleteContact() {
-        int delete = 0;
-        boolean yn = false;
-
-
         for (int i = 0; i < contacts.size(); i++) {
             System.out.printf("%-4d| %-18s | %-12s |\n", (i +1), contacts.get(i).contactName, contacts.get(i).contactPhone);
-
         }
-        delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete?: ");
-
+        int delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete?: ");
         Input.clearBuffer();
-
-        yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1).contactName + " " + contacts.get(delete -1).contactPhone + "[yes/no]? ");
-
-        if (yn == true ) {
+        boolean yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1).contactName + " " + contacts.get(delete -1).contactPhone + "[yes/no]? ");
+        if (yn) {
             contacts.remove(delete - 1);
             System.out.println("Contact has been deleted.");
-        } else {
-            return;
         }
     }
-
 
     private static void searchContact() {
         int searchBy = Input.getInt(1, 2 ,"Would you like to search by: (Enter 1 or 2)\n1. Name\n2. Number");
@@ -136,23 +120,22 @@ public class ContactsApplication {
             search = Input.getString("Number Search: ");
             printSearch(search);
         }
-        System.out.println("\n");
     }
 
     private static void printSearch(String search) {
         String nameString = "Name";
         String numberString = "Phone Number";
         System.out.println("\n");
-        System.out.printf("-------------------------------------");
+        System.out.print("-------------------------------------");
         System.out.printf("\n" +
                 "| %-18s | %-12s |\n", nameString, numberString);
-        System.out.printf("-------------------------------------\n");
+        System.out.print("-------------------------------------\n");
         for (Contact contact : contacts) {
             if(contact.getContactName().contains(search)){
                 System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
             }
         }
-        System.out.printf("-------------------------------------\n");
+        System.out.print("-------------------------------------\n\n");
     }
 
     private static boolean checkDuplicates(String contactName) {
@@ -195,21 +178,17 @@ public class ContactsApplication {
     }
 
     private static void printContacts() {
-
         String nameString = "Name";
         String numberString = "Phone Number";
         System.out.println("\n");
-        System.out.printf("-------------------------------------");
+        System.out.print("-------------------------------------");
         System.out.printf("\n" +
                 "| %-18s | %-12s |\n", nameString, numberString);
-        System.out.printf("-------------------------------------\n");
-
+        System.out.print("-------------------------------------\n");
         for (Contact contact : contacts) {
             System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
         }
-        System.out.printf("-------------------------------------\n");
-        System.out.println("\n");
+        System.out.print("-------------------------------------\n");
+        System.out.print("\n");
     }
-
-
 }
