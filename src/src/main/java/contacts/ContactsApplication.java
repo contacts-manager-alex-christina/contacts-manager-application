@@ -182,13 +182,10 @@ public class ContactsApplication {
     }
 
     private static void printContacts() {
-   
-        System.out.print("\n" +
-                "| Name | Phone number |\n" +
-                "---------------------------\n");
 
         String nameString = "Name";
         String numberString = "Phone Number";
+        System.out.println("\n");
         System.out.printf("-------------------------------------");
         System.out.printf("\n" +
                 "| %-18s | %-12s |\n", nameString, numberString);
