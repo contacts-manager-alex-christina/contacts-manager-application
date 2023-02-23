@@ -17,8 +17,9 @@ public class ContactsApplication {
     public static void main(String[] args) {
 
         populateContacts();
-        while(true) {
 
+        while(true) {
+        
             printMenu();
 
             Input user = new Input();
