@@ -104,16 +104,24 @@ public class ContactsApplication {
     }
 
     private static void deleteContact() {
-        String search = null;
-        search = Input.getString("What is the name of the contact you'd like to delete? :");
+        int delete = 0;
 
-        for (Contact contact : contacts) {
-            if (contact.getContactName().contains(search)) {
-                System.out.println("Are you sure you would like to delete the contact for " + contact + "?");
-                contacts.remove(contact);
-            }
+
+       // contacts.remove(10);
+
+        for (int i = 0; i < contacts.size(); i++) {
+            System.out.printf(" %d. %s\n", (i +1), contacts.get(i));
 
         }
+        delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete? :");
+
+        System.out.println("Are you sure you would like to delete the contact for " + contacts.get(delete -1) + "[y/n]? ");
+
+
+
+
+        contacts.remove(delete - 1);
+
     }
 
     private static void searchContact() {
