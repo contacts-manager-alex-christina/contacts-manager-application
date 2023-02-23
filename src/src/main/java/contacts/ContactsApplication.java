@@ -208,7 +208,7 @@ public class ContactsApplication {
         }
         int delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete?: ");
         Input.clearBuffer();
-        boolean yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1).contactName + " " + contacts.get(delete -1).contactPhone + "[yes/no]? ");
+        boolean yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1).contactName + " " + contacts.get(delete -1).contactPhone + " [yes/no]?: ");
         if (yn) {
             contacts.remove(delete - 1);
             System.out.println("Contact has been deleted.");
@@ -299,14 +299,13 @@ public class ContactsApplication {
         
         System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n-------------------------------------------");
 
-        System.out.printf(
-                "| %-18s |    %-15s |\n", nameString, numberString);
-        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "-------------------------------------------\n");
+        System.out.printf("| %-18s |    %-15s |\n", nameString, numberString);
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED +"-------------------------------------------");
 
         for (Contact contact : contacts) {
             slowPrint(String.format("| %-18s |    %-15s |\n", contact.contactName, contact.contactPhone), ANSI_BRIGHT_BG_YELLOW, ANSI_BRIGHT_RED);
         }
-        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "-------------------------------------------\n\n");
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "-------------------------------------------\n");
 
     }
 
