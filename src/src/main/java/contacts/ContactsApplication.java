@@ -126,6 +126,7 @@ public class ContactsApplication {
 
     private static void searchContact() {
         int searchBy = Input.getInt(1, 2 ,"Would you like to search by: (Enter 1 or 2)\n1. Name\n2. Number");
+        Input.clearBuffer();
         String search;
         if(searchBy == 1){
             search = Input.getString("Name Search: ");
@@ -139,11 +140,19 @@ public class ContactsApplication {
     }
 
     private static void printSearch(String search) {
+        String nameString = "Name";
+        String numberString = "Phone Number";
+        System.out.println("\n");
+        System.out.printf("-------------------------------------");
+        System.out.printf("\n" +
+                "| %-18s | %-12s |\n", nameString, numberString);
+        System.out.printf("-------------------------------------\n");
         for (Contact contact : contacts) {
             if(contact.getContactName().contains(search)){
                 System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
             }
         }
+        System.out.printf("-------------------------------------\n");
     }
 
     private static boolean checkDuplicates(String contactName) {
