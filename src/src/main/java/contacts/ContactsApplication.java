@@ -106,14 +106,14 @@ public class ContactsApplication {
 
 
         for (int i = 0; i < contacts.size(); i++) {
-            System.out.printf(" %d. %s\n", (i +1), contacts.get(i));
+            System.out.printf("%-4d| %-18s | %-12s |\n", (i +1), contacts.get(i).contactName, contacts.get(i).contactPhone);
 
         }
         delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete?: ");
 
         Input.clearBuffer();
 
-        yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1) + "[yes/no]? ");
+        yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1).contactName + " " + contacts.get(delete -1).contactPhone + "[yes/no]? ");
 
         if (yn == true ) {
             contacts.remove(delete - 1);
@@ -133,7 +133,7 @@ public class ContactsApplication {
             search = Input.getString("Name Search: ");
             for (Contact contact : contacts) {
                 if(contact.getContactName().contains(search)){
-                    System.out.println(contact);
+                    System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
                 }
             }
         }
@@ -141,10 +141,11 @@ public class ContactsApplication {
             search = Input.getString("Number Search: ");
             for (Contact contact : contacts) {
                 if(contact.getContactPhone().contains(search)){
-                    System.out.println(contact);
+                    System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
                 }
             }
         }
+        System.out.println("\n");
 
     }
 
@@ -169,16 +170,21 @@ public class ContactsApplication {
         String contactNumber = Input.getString("New contact number: ");
         Contact newContact = new Contact(contactName, contactNumber);
         contacts.add(newContact);
-        System.out.println("Added contact: " + newContact);
+        System.out.println("Added contact: " + newContact.contactName);
     }
 
     private static void printContacts() {
+        String nameString = "Name";
+        String numberString = "Phone Number";
+        System.out.printf("-------------------------------------");
         System.out.printf("\n" +
-                "| Name | Phone number |\n" +
-                "---------------------------\n");
+                "| %-18s | %-12s |\n", nameString, numberString);
+        System.out.printf("-------------------------------------\n");
         for (Contact contact : contacts) {
             System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
         }
+        System.out.printf("-------------------------------------\n");
+        System.out.println("\n");
     }
 
 
