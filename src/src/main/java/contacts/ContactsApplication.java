@@ -19,7 +19,7 @@ public class ContactsApplication {
         populateContacts();
 
         while(true) {
-
+        
             printMenu();
 
             Input user = new Input();
@@ -69,7 +69,7 @@ public class ContactsApplication {
 
         } catch (IOException e) {
             System.out.println("createFile exception: " + e.getMessage());
-            e.printStackTrace();//tells us which exception is thrown
+            e.printStackTrace();
         }
         }
 
@@ -105,6 +105,24 @@ public class ContactsApplication {
     }
 
     private static void deleteContact() {
+        int delete = 0;
+
+
+       // contacts.remove(10);
+
+        for (int i = 0; i < contacts.size(); i++) {
+            System.out.printf(" %d. %s\n", (i +1), contacts.get(i));
+
+        }
+        delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete? :");
+
+        System.out.println("Are you sure you would like to delete the contact for " + contacts.get(delete -1) + "[y/n]? ");
+
+
+
+
+        contacts.remove(delete - 1);
+
     }
 
     private static void searchContact() {
@@ -141,8 +159,11 @@ public class ContactsApplication {
     }
 
     private static void printContacts() {
+        System.out.printf("\n" +
+                "| Name | Phone number |\n" +
+                "---------------------------\n");
         for (Contact contact : contacts) {
-            System.out.println(contact);
+            System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
         }
     }
 
