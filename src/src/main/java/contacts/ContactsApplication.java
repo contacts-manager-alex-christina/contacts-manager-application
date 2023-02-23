@@ -123,30 +123,27 @@ public class ContactsApplication {
         }
     }
 
+
     private static void searchContact() {
-        String nameOrNum = null;
-        String search = null;
-        do {
-            nameOrNum = Input.getString("Would you like to search by: (Enter 1 or 2)\n1. Name\n2. Number");
-        } while(!"1".equals(nameOrNum) && !"2".equals(nameOrNum));
-        if("1".equals(nameOrNum)){
+        int searchBy = Input.getInt(1, 2 ,"Would you like to search by: (Enter 1 or 2)\n1. Name\n2. Number");
+        String search;
+        if(searchBy == 1){
             search = Input.getString("Name Search: ");
-            for (Contact contact : contacts) {
-                if(contact.getContactName().contains(search)){
-                    System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
-                }
-            }
+            printSearch(search);
         }
-        if("2".equals(nameOrNum)){
+        if(searchBy == 2){
             search = Input.getString("Number Search: ");
-            for (Contact contact : contacts) {
-                if(contact.getContactPhone().contains(search)){
-                    System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
-                }
-            }
+            printSearch(search);
         }
         System.out.println("\n");
+    }
 
+    private static void printSearch(String search) {
+        for (Contact contact : contacts) {
+            if(contact.getContactName().contains(search)){
+                System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
+            }
+        }
     }
 
     private static boolean checkDuplicates(String contactName) {
@@ -158,7 +155,15 @@ public class ContactsApplication {
         return false;
     }
 
-    private static void addContacts() throws IOException {
+    private static boolean validifyDigits (String phoneNumber){
+        if(phoneNumber.length() == 10){
+            return true;
+        }
+        System.out.println("Invalid Number\nPlease input a 10 digit phone number");
+        return false;
+    }
+
+    private static void addContacts() {
         String contactName = Input.getString("New contact name: ");
         if(checkDuplicates(contactName)){
             boolean overrideResponse = Input.yesNo("Contact name already exists\nContinue and override? [y/n]");
@@ -167,19 +172,28 @@ public class ContactsApplication {
             }
         }
         contacts.removeIf(contact -> contact.getContactName().equalsIgnoreCase(contactName));
-        String contactNumber = Input.getString("New contact number: ");
+        String contactNumber;
+        do {
+            contactNumber = Input.getString("New contact number: ");
+        } while(!validifyDigits(contactNumber));
         Contact newContact = new Contact(contactName, contactNumber);
         contacts.add(newContact);
         System.out.println("Added contact: " + newContact.contactName);
     }
 
     private static void printContacts() {
+   
+        System.out.print("\n" +
+                "| Name | Phone number |\n" +
+                "---------------------------\n");
+
         String nameString = "Name";
         String numberString = "Phone Number";
         System.out.printf("-------------------------------------");
         System.out.printf("\n" +
                 "| %-18s | %-12s |\n", nameString, numberString);
         System.out.printf("-------------------------------------\n");
+
         for (Contact contact : contacts) {
             System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
         }
