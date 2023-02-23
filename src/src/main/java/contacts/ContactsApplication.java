@@ -131,7 +131,7 @@ public class ContactsApplication {
                 "| %-18s | %-12s |\n", nameString, numberString);
         System.out.print("-------------------------------------\n");
         for (Contact contact : contacts) {
-            if(contact.getContactName().contains(search)){
+            if(contact.getContactName().contains(search) || contact.getContactPhone().contains(search) || contact.getContactPhone().replaceAll("-", "").contains(search)){
                 System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
             }
         }
