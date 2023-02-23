@@ -17,7 +17,7 @@ public class Input {
         if (userNum >= min && userNum <= max) {
             return userNum;
         } else {
-            System.out.printf("Enter a number between %d and %d: ", min, max);
+            System.out.printf("Enter a number between %d and %d: \n", min, max);
             return getInt(min, max);
         }
     }
