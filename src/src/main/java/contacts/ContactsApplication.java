@@ -4,16 +4,55 @@ import util.Input;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.security.KeyStore;
 import java.util.*;
 
 public class ContactsApplication {
+
+
+    public static final String TEXT_CYAN = "\u001B[36m";
+    public static final String TEXT_BLUE = "\u001B[34m";
+    public static final String TEXT_YELLOW = "\u001B[33m";
+    public static final String TEXT_PURPLE = "\u001B[35m";
+    public static final String TEXT_WHITE = "\u001B[37m";
+
+    public static final String ANSI_BRIGHT_BLACK  = "\u001B[90m";
+    public static final String ANSI_BRIGHT_RED    = "\u001B[91m";
+    public static final String ANSI_BRIGHT_GREEN  = "\u001B[92m";
+    public static final String ANSI_BRIGHT_YELLOW = "\u001B[93m";
+    public static final String ANSI_BRIGHT_BLUE   = "\u001B[94m";
+    public static final String ANSI_BRIGHT_PURPLE = "\u001B[95m";
+    public static final String ANSI_BRIGHT_CYAN   = "\u001B[96m";
+    public static final String ANSI_BRIGHT_WHITE  = "\u001B[97m";
+
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+    public static final String ANSI_BG_BLACK  = "\u001B[40m";
+
+    public static final String ANSI_BRIGHT_BG_BLACK  = "\u001B[100m";
+    public static final String ANSI_BRIGHT_BG_RED    = "\u001B[101m";
+    public static final String ANSI_BRIGHT_BG_GREEN  = "\u001B[102m";
+    public static final String ANSI_BRIGHT_BG_YELLOW = "\u001B[103m";
+    public static final String ANSI_BRIGHT_BG_BLUE   = "\u001B[104m";
+    public static final String ANSI_BRIGHT_BG_PURPLE = "\u001B[105m";
+    public static final String ANSI_BRIGHT_BG_CYAN   = "\u001B[106m";
+    public static final String ANSI_BRIGHT_BG_WHITE  = "\u001B[107m";
+
     protected static final Path DATA_PATH = Paths.get("data.txt");
+
 
     static ArrayList<Contact> contacts = new ArrayList<>();
 
     public static void main(String[] args) {
+
         Input user = new Input();
         checkFileExists();
+        
         populateContacts();
         while(true) {
             printMenu();
@@ -76,7 +115,7 @@ public class ContactsApplication {
     }
 
     private static void printMenu () {
-        System.out.print("What would you like to do?\n" +
+        System.out.print(ANSI_BRIGHT_CYAN + ANSI_PURPLE_BACKGROUND + "What would you like to do?\n" +
                 "1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact.\n" +
@@ -123,19 +162,28 @@ public class ContactsApplication {
     }
 
     private static void printSearch(String search) {
+        int count = 0;
         String nameString = "Name";
         String numberString = "Phone Number";
-        System.out.println("\n");
-        System.out.print("-------------------------------------");
+
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n");
+        System.out.printf("-------------------------------------");
+
         System.out.printf("\n" +
                 "| %-18s | %-12s |\n", nameString, numberString);
         System.out.print("-------------------------------------\n");
         for (Contact contact : contacts) {
             if(contact.getContactName().contains(search) || contact.getContactPhone().contains(search) || contact.getContactPhone().replaceAll("-", "").contains(search)){
                 System.out.printf("| %-18s | %-12s |\n", contact.contactName, contact.contactPhone);
+                count++;
             }
         }
-        System.out.print("-------------------------------------\n\n");
+
+        if (count == 0) {
+            System.out.println("No matching search results found.");
+        }
+        System.out.printf("-------------------------------------\n");
+
     }
 
     private static boolean checkDuplicates(String contactName) {
@@ -180,8 +228,9 @@ public class ContactsApplication {
     private static void printContacts() {
         String nameString = "Name";
         String numberString = "Phone Number";
-        System.out.println("\n");
-        System.out.print("-------------------------------------");
+        System.out.println(ANSI_BRIGHT_BG_YELLOW + ANSI_BRIGHT_RED + "\n");
+        System.out.printf("-------------------------------------");
+
         System.out.printf("\n" +
                 "| %-18s | %-12s |\n", nameString, numberString);
         System.out.print("-------------------------------------\n");
