@@ -60,6 +60,7 @@ public class Input {
         }
     }
 
+
     public static boolean yesNo(String prompt) {
         System.out.println(prompt);
         return yesNo();
@@ -67,6 +68,6 @@ public class Input {
     }
 
     public static void setScannerInput(Scanner scannerInput) {
-        Input.scannerInput = scannerInput;
+        util.Input.scannerInput = scannerInput;
     }
 }

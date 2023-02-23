@@ -9,12 +9,11 @@ import java.util.*;
 public class ContactsApplication {
     protected static final Path DATAPATH = Paths.get("data.txt");
 
-    static ArrayList <Contact> contacts = new ArrayList<>();
+    static ArrayList<Contact> contacts = new ArrayList<>();
 
     public static void main(String[] args) {
 
         populateContacts();
-
         while(true) {
 
             printMenu();
@@ -103,23 +102,25 @@ public class ContactsApplication {
 
     private static void deleteContact() {
         int delete = 0;
+        boolean yn = false;
 
-
-        // contacts.remove(10);
 
         for (int i = 0; i < contacts.size(); i++) {
             System.out.printf(" %d. %s\n", (i +1), contacts.get(i));
 
         }
-        delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete? :");
+        delete = Input.getInt(1, contacts.size(), "What is the number of the contact you'd like to delete?: ");
 
-        System.out.println("Are you sure you would like to delete the contact for " + contacts.get(delete -1) + "[y/n]? ");
+        Input.clearBuffer();
 
+        yn = Input.yesNo("Are you sure you would like to delete the contact for " + contacts.get(delete -1) + "[yes/no]? ");
 
-
-
-        contacts.remove(delete - 1);
-
+        if (yn == true ) {
+            contacts.remove(delete - 1);
+            System.out.println("Contact has been deleted.");
+        } else {
+            return;
+        }
     }
 
     private static void searchContact() {
