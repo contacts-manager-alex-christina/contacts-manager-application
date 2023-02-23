@@ -122,7 +122,7 @@ public class ContactsApplication {
                 "4. Delete an existing contact.\n" +
                 "5. Exit.\n" +
                 "\n" +
-                "Enter your choice (1 - 5): ");
+                "Enter your choice (1 - 5): \n" + ANSI_BRIGHT_CYAN + ANSI_PURPLE_BACKGROUND);
     }
 
     private static void chooseOption(int selection) throws IOException {
